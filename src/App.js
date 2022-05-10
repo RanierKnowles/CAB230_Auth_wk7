@@ -1,23 +1,40 @@
-import logo from './logo.svg';
+
 import './App.css';
 
+const API_URL = "http://sefdb02.qut.edu.au:3001"
+
 function App() {
+  function login() {
+    const url = `${API_URL}/user/login`
+
+    return fetch(url, {
+      method: "POST",
+      headers: { accept: "application/json", "Content-Type": "application/json"},
+      body: JSON.stringify({email: "mike@gmail.com", password: "password"})
+
+    })
+    .then(res => res.json())
+    .then(res => console.log(res));
+  }
+
+  function logout() {
+    const url = `${API_URL}/user/login`
+    let token = localStorage.getItem("token");
+
+    return fetch(url, {
+      method: "POST",
+      headers: { accept: "application/json", "Content-Type": "application/json"},
+      body: JSON.stringify({email: "mike@gmail.com", password: "password"})
+
+    })
+    .then(res => res.json())
+    .then(res => console.log(res));
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>JWT Token Example</h1>
+      <button onClick={login}>Login</button>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 }
